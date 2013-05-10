@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin
+	id="es.com.upm.graphiti.svgExporter"
+   name="Plug-in SVG Exporter"
+   version="1.0.0"
+   provider-name="CenterforOpenMiddleware">
+
+ <extension point="org.eclipse.ui.exportWizards"> 
+     <wizard 
+          id="es.com.upm.SVGExporter"
+          name="SVG Export Wizard" 
+          class="es.com.upm.graphiti.export.wizard.SVGExportWizard"> 
+          <description> 
+              Create a simple XYZ artifact and set initial content 
+          </description> 
+          <selection class="org.eclipse.core.resources.IFile"/> 
+      </wizard> 
+   </extension> 
+ </plugin>

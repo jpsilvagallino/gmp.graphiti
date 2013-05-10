@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="215" diagramTypeId="BKS FLow Diagram" name="Diagrama_basico">
+  <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.1" foreground="//@colors.2" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="1000" height="1000"/>
+  <link/>
+  <children xsi:type="pi:ContainerShape" visible="true" active="true">
+    <properties key="LEVEL" value="0"/>
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="130" height="28" x="42" y="50">
+      <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" foreground="//@colors.3" lineWidth="1" transparency="0.0" width="125" height="28" x="5" style="//@styles.0" cornerHeight="5" cornerWidth="5">
+        <graphicsAlgorithmChildren xsi:type="al:Image" lineWidth="1" transparency="0.0" width="30" height="28" id="com.isb.bks.flow.features.label.state.icon" stretchH="false" stretchV="false" proportional="false">
+          <properties key="StateLabelImage" value="true"/>
+        </graphicsAlgorithmChildren>
+        <graphicsAlgorithmChildren xsi:type="al:Image" lineWidth="1" transparency="0.0" width="16" height="16" x="7" y="7" id="com.isb.bks.flow.features.end.state.icon" stretchH="false" stretchV="false" proportional="false">
+          <properties key="IdentityImage" value="true"/>
+        </graphicsAlgorithmChildren>
+      </graphicsAlgorithmChildren>
+    </graphicsAlgorithm>
+    <link/>
+    <anchors xsi:type="pi:FixPointAnchor" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.3" lineWidth="1" transparency="0.0" style="//@styles.0">
+        <points/>
+        <points x="5" y="-5"/>
+        <points x="5" y="5"/>
+        <points/>
+      </graphicsAlgorithm>
+      <location y="14"/>
+    </anchors>
+    <anchors xsi:type="pi:ChopboxAnchor">
+      <link/>
+    </anchors>
+    <children visible="true">
+      <graphicsAlgorithm xsi:type="al:Text" foreground="/0/@colors.1" lineWidth="1" transparency="0.0" width="82" height="25" x="39" y="1" font="/0/@fonts.1" verticalAlignment="ALIGNMENT_TOP" value="End"/>
+	  <link/>
+    </children>
+  </children>
+  <styles foreground="//@colors.3" lineWidth="2" id="End">
+    <renderingStyle>
+      <adaptedGradientColoredAreas definedStyleId="default-state-gradient" gradientType="0">
+        <adaptedGradientColoredAreas styleAdaption="0">
+          <gradientColor>
+            <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="0">
+              <color red="81" green="81" blue="81"/>
+            </start>
+            <end locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="0">
+              <color red="40" green="40" blue="40"/>
+            </end>
+          </gradientColor>
+        </adaptedGradientColoredAreas>
+        <adaptedGradientColoredAreas styleAdaption="0">
+          <gradientColor>
+            <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="0">
+              <color red="122" green="121" blue="121"/>
+            </start>
+            <end locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="0">
+              <color red="70" green="70" blue="70"/>
+            </end>
+          </gradientColor>
+        </adaptedGradientColoredAreas>
+        <adaptedGradientColoredAreas styleAdaption="0">
+          <gradientColor>
+            <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="0">
+              <color red="122" green="121" blue="121"/>
+            </start>
+            <end>
+              <color red="70" green="70" blue="70"/>
+            </end>
+          </gradientColor>
+        </adaptedGradientColoredAreas>
+      </adaptedGradientColoredAreas>
+    </renderingStyle>
+  </styles>
+  <colors red="227" green="238" blue="249"/>
+  <colors red="255" green="255" blue="255"/>
+  <colors red="248" green="248" blue="248"/>
+  <colors red="105" green="107" blue="115"/>
+  <fonts name="Arial" size="8"/>
+  <fonts name="Segoe UI" size="8" bold="true"/>
+</pi:Diagram>

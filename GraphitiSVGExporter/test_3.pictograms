@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="215" diagramTypeId="BKS Flow Dagram" name="Example_2">
+    <graphicsAlgorithm xsi:type="al:Rectangle" background="/0/@colors.1" foreground="/0/@colors.2" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
+    <link/>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <properties key="LEVEL" value="2"/>
+      <properties key="COLORINDEX" value="2"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="130" height="28" x="472" y="341">
+        <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" foreground="/0/@colors.3" lineWidth="1" transparency="0.0" width="125" height="28" x="5" style="/0/@styles.0" cornerHeight="5" cornerWidth="5">
+          <graphicsAlgorithmChildren xsi:type="al:Image" lineWidth="1" transparency="0.0" width="30" height="28" id="com.isb.bks.flow.features.label.state.icon" stretchH="false" stretchV="false" proportional="false">
+            <properties key="StateLabelImage" value="true"/>
+          </graphicsAlgorithmChildren>
+          <graphicsAlgorithmChildren xsi:type="al:Image" lineWidth="1" transparency="0.0" width="16" height="16" x="7" y="7" id="com.isb.bks.flow.features.end.state.icon" stretchH="false" stretchV="false" proportional="false">
+            <properties key="IdentityImage" value="true"/>
+          </graphicsAlgorithmChildren>
+        </graphicsAlgorithmChildren>
+      </graphicsAlgorithm>
+      <link/>
+      <anchors xsi:type="pi:FixPointAnchor" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Polygon" background="/0/@colors.3" foreground="/0/@colors.3" lineWidth="1" transparency="0.0" style="/0/@styles.0">
+          <points/>
+          <points x="5" y="-5"/>
+          <points x="5" y="5"/>
+          <points/>
+        </graphicsAlgorithm>
+        <location y="14"/>
+      </anchors>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="/0/@connections.2 /0/@connections.3">
+        <link/>
+      </anchors>
+      <children visible="true">
+        <graphicsAlgorithm xsi:type="al:Text" foreground="/0/@colors.1" lineWidth="1" transparency="0.0" width="82" height="25" x="39" y="1" font="/0/@fonts.1" verticalAlignment="ALIGNMENT_TOP" value="End"/>
+        <link/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <properties key="TYPE" value="Page"/>
+      <properties key="LEVEL" value="0"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="125" height="137" x="45" y="220">
+        <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" lineWidth="1" transparency="0.0" width="125" height="137" style="/0/@styles.1" cornerHeight="5" cornerWidth="5">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" lineWidth="1" transparency="0.0" width="125" height="28" style="/0/@styles.2" cornerHeight="8" cornerWidth="8">
+            <graphicsAlgorithmChildren xsi:type="al:Image" lineWidth="1" transparency="0.0" width="30" height="28" id="com.isb.bks.flow.features.label.state.icon" stretchH="false" stretchV="false" proportional="false">
+              <properties key="StateLabelImage" value="true"/>
+            </graphicsAlgorithmChildren>
+            <graphicsAlgorithmChildren xsi:type="al:Image" lineWidth="1" transparency="0.0" width="16" height="16" x="7" y="5" id="com.isb.bks.flow.features.page.state.icon" stretchH="false" stretchV="false" proportional="false">
+              <properties key="IdentityImage" value="true"/>
+            </graphicsAlgorithmChildren>
+          </graphicsAlgorithmChildren>
+        </graphicsAlgorithmChildren>
+      </graphicsAlgorithm>
+      <link/>
+      <anchors xsi:type="pi:ChopboxAnchor">
+        <link/>
+      </anchors>
+      <anchors xsi:type="pi:FixPointAnchor" visible="true" active="true" outgoingConnections="/0/@connections.0">
+        <properties key="ANCHOR_INDEX" value="0"/>
+        <properties key="ANCHOR_TYPE" value="Output"/>
+        <graphicsAlgorithm xsi:type="al:Image" lineWidth="1" transparency="0.0" width="16" height="16" stretchH="false" stretchV="false" proportional="false">
+          <properties key="TOOLTIP" value="Ev_A"/>
+        </graphicsAlgorithm>
+        <link/>
+        <location x="102" y="33"/>
+      </anchors>
+      <anchors xsi:type="pi:FixPointAnchor" visible="true" active="true" outgoingConnections="/0/@connections.1">
+        <properties key="ANCHOR_INDEX" value="1"/>
+        <properties key="ANCHOR_TYPE" value="Output"/>
+        <graphicsAlgorithm xsi:type="al:Image" lineWidth="1" transparency="0.0" width="16" height="16" stretchH="false" stretchV="false" proportional="false">
+          <properties key="TOOLTIP" value="Ev_B"/>
+        </graphicsAlgorithm>
+        <link/>
+        <location x="102" y="59"/>
+      </anchors>
+      <children visible="true">
+        <graphicsAlgorithm xsi:type="al:Text" foreground="/0/@colors.1" lineWidth="1" transparency="0.0" width="88" height="25" x="37" y="1" font="/0/@fonts.1" verticalAlignment="ALIGNMENT_TOP" value="Inicio"/>
+        <link/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <properties key="TYPE" value="Page"/>
+      <properties key="LEVEL" value="1"/>
+      <properties key="COLORINDEX" value="1"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="125" height="137" x="260" y="101">
+        <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" lineWidth="1" transparency="0.0" width="125" height="137" style="/0/@styles.1" cornerHeight="5" cornerWidth="5">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" lineWidth="1" transparency="0.0" width="125" height="28" style="/0/@styles.2" cornerHeight="8" cornerWidth="8">
+            <graphicsAlgorithmChildren xsi:type="al:Image" lineWidth="1" transparency="0.0" width="30" height="28" id="com.isb.bks.flow.features.label.state.icon" stretchH="false" stretchV="false" proportional="false">
+              <properties key="StateLabelImage" value="true"/>
+            </graphicsAlgorithmChildren>
+            <graphicsAlgorithmChildren xsi:type="al:Image" lineWidth="1" transparency="0.0" width="16" height="16" x="7" y="5" id="com.isb.bks.flow.features.page.state.icon" stretchH="false" stretchV="false" proportional="false">
+              <properties key="IdentityImage" value="true"/>
+            </graphicsAlgorithmChildren>
+          </graphicsAlgorithmChildren>
+        </graphicsAlgorithmChildren>
+      </graphicsAlgorithm>
+      <link/>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="/0/@connections.1">
+        <link/>
+      </anchors>
+      <anchors xsi:type="pi:FixPointAnchor" visible="true" active="true" outgoingConnections="/0/@connections.2">
+        <properties key="ANCHOR_INDEX" value="0"/>
+        <properties key="ANCHOR_TYPE" value="Output"/>
+        <graphicsAlgorithm xsi:type="al:Image" lineWidth="1" transparency="0.0" width="16" height="16" stretchH="false" stretchV="false" proportional="false">
+          <properties key="TOOLTIP" value="Ok"/>
+        </graphicsAlgorithm>
+        <link/>
+        <location x="102" y="33"/>
+      </anchors>
+      <children visible="true">
+        <graphicsAlgorithm xsi:type="al:Text" foreground="/0/@colors.1" lineWidth="1" transparency="0.0" width="88" height="25" x="37" y="1" font="/0/@fonts.1" verticalAlignment="ALIGNMENT_TOP" value="Navegaci&#xf3;n_B"/>
+        <link/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <properties key="TYPE" value="Page"/>
+      <properties key="COLORINDEX" value="0"/>
+      <properties key="LEVEL" value="2"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="125" height="137" x="475" y="50">
+        <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" lineWidth="1" transparency="0.0" width="125" height="137" style="/0/@styles.1" cornerHeight="5" cornerWidth="5">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" lineWidth="1" transparency="0.0" width="125" height="28" style="/0/@styles.2" cornerHeight="8" cornerWidth="8">
+            <graphicsAlgorithmChildren xsi:type="al:Image" lineWidth="1" transparency="0.0" width="30" height="28" id="com.isb.bks.flow.features.label.state.icon" stretchH="false" stretchV="false" proportional="false">
+              <properties key="StateLabelImage" value="true"/>
+            </graphicsAlgorithmChildren>
+            <graphicsAlgorithmChildren xsi:type="al:Image" lineWidth="1" transparency="0.0" width="16" height="16" x="7" y="5" id="com.isb.bks.flow.features.page.state.icon" stretchH="false" stretchV="false" proportional="false">
+              <properties key="IdentityImage" value="true"/>
+            </graphicsAlgorithmChildren>
+          </graphicsAlgorithmChildren>
+        </graphicsAlgorithmChildren>
+      </graphicsAlgorithm>
+      <link/>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="/0/@connections.0">
+        <link/>
+      </anchors>
+      <anchors xsi:type="pi:FixPointAnchor" visible="true" active="true" outgoingConnections="/0/@connections.3">
+        <properties key="ANCHOR_INDEX" value="0"/>
+        <properties key="ANCHOR_TYPE" value="Output"/>
+        <graphicsAlgorithm xsi:type="al:Image" lineWidth="1" transparency="0.0" width="16" height="16" stretchH="false" stretchV="false" proportional="false">
+          <properties key="TOOLTIP" value="Ok"/>
+        </graphicsAlgorithm>
+        <link/>
+        <location x="102" y="33"/>
+      </anchors>
+      <children visible="true">
+        <graphicsAlgorithm xsi:type="al:Text" foreground="/0/@colors.1" lineWidth="1" transparency="0.0" width="88" height="25" x="37" y="1" font="/0/@fonts.1" verticalAlignment="ALIGNMENT_TOP" value="Navegacion_A"/>
+        <link/>
+      </children>
+    </children>
+    <children active="true">
+      <graphicsAlgorithm xsi:type="al:Image" lineWidth="1" transparency="0.0" id="com.isb.bks.flow.features.backward.arrow.0" stretchH="false" stretchV="false" proportional="false"/>
+      <link/>
+    </children>
+    <children active="true">
+      <graphicsAlgorithm xsi:type="al:Image" lineWidth="1" transparency="0.0" id="com.isb.bks.flow.features.backward.arrow.1" stretchH="false" stretchV="false" proportional="false"/>
+      <link/>
+    </children>
+    <children active="true">
+      <graphicsAlgorithm xsi:type="al:Image" lineWidth="1" transparency="0.0" id="com.isb.bks.flow.features.backward.arrow.2" stretchH="false" stretchV="false" proportional="false"/>
+      <link/>
+    </children>
+    <children active="true">
+      <graphicsAlgorithm xsi:type="al:Image" lineWidth="1" transparency="0.0" id="com.isb.bks.flow.features.backward.arrow.2" stretchH="false" stretchV="false" proportional="false"/>
+      <link/>
+    </children>
+    <styles foreground="/0/@colors.3" lineWidth="2" id="End">
+      <renderingStyle>
+        <adaptedGradientColoredAreas definedStyleId="default-state-gradient" gradientType="0">
+          <adaptedGradientColoredAreas styleAdaption="0">
+            <gradientColor>
+              <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="0">
+                <color red="81" green="81" blue="81"/>
+              </start>
+              <end locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="0">
+                <color red="40" green="40" blue="40"/>
+              </end>
+            </gradientColor>
+          </adaptedGradientColoredAreas>
+          <adaptedGradientColoredAreas styleAdaption="0">
+            <gradientColor>
+              <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="0">
+                <color red="122" green="121" blue="121"/>
+              </start>
+              <end locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="0">
+                <color red="70" green="70" blue="70"/>
+              </end>
+            </gradientColor>
+          </adaptedGradientColoredAreas>
+          <adaptedGradientColoredAreas styleAdaption="0">
+            <gradientColor>
+              <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="0">
+                <color red="122" green="121" blue="121"/>
+              </start>
+              <end locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="0">
+                <color red="70" green="70" blue="70"/>
+              </end>
+            </gradientColor>
+          </adaptedGradientColoredAreas>
+        </adaptedGradientColoredAreas>
+      </renderingStyle>
+    </styles>
+    <styles foreground="/0/@colors.4" lineWidth="2" id="BodyPage">
+      <renderingStyle>
+        <adaptedGradientColoredAreas definedStyleId="default-state-gradient" gradientType="0">
+          <adaptedGradientColoredAreas styleAdaption="0">
+            <gradientColor>
+              <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="28">
+                <color red="235" green="235" blue="235"/>
+              </start>
+              <end locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="0">
+                <color red="247" green="247" blue="247"/>
+              </end>
+            </gradientColor>
+          </adaptedGradientColoredAreas>
+          <adaptedGradientColoredAreas styleAdaption="0">
+            <gradientColor>
+              <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="28">
+                <color red="219" green="219" blue="219"/>
+              </start>
+              <end locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="0">
+                <color red="231" green="231" blue="231"/>
+              </end>
+            </gradientColor>
+          </adaptedGradientColoredAreas>
+          <adaptedGradientColoredAreas styleAdaption="0">
+            <gradientColor>
+              <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="28">
+                <color red="219" green="219" blue="219"/>
+              </start>
+              <end locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="0">
+                <color red="231" green="231" blue="231"/>
+              </end>
+            </gradientColor>
+          </adaptedGradientColoredAreas>
+        </adaptedGradientColoredAreas>
+      </renderingStyle>
+    </styles>
+    <styles foreground="/0/@colors.5" lineWidth="2" id="Title">
+      <renderingStyle>
+        <adaptedGradientColoredAreas definedStyleId="page-state-title-gradient" gradientType="0">
+          <adaptedGradientColoredAreas styleAdaption="0">
+            <gradientColor>
+              <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="0">
+                <color red="81" green="81" blue="81"/>
+              </start>
+              <end locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="0">
+                <color red="40" green="40" blue="40"/>
+              </end>
+            </gradientColor>
+          </adaptedGradientColoredAreas>
+        </adaptedGradientColoredAreas>
+      </renderingStyle>
+    </styles>
+    <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="/0/@children.1/@anchors.1" end="/0/@children.3/@anchors.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="/0/@colors.6" lineWidth="2" filled="false" transparency="0.0"/>
+      <link/>
+      <connectionDecorators visible="true" locationRelative="true" location="1.0">
+        <graphicsAlgorithm xsi:type="al:Polygon" background="/0/@colors.6" foreground="/0/@colors.6" lineWidth="1" transparency="0.0">
+          <points x="-7" y="4"/>
+          <points x="2"/>
+          <points x="-7" y="-4"/>
+          <points x="-1"/>
+          <points x="-7" y="4"/>
+          <points x="-3"/>
+          <points x="-7" y="-4"/>
+          <points x="-5"/>
+          <points x="-7" y="4"/>
+        </graphicsAlgorithm>
+      </connectionDecorators>
+      <bendpoints x="203" y="261"/>
+      <bendpoints x="260" y="253"/>
+      <bendpoints x="446" y="445"/>
+      <bendpoints x="693" y="445"/>
+      <bendpoints x="693" y="24"/>
+    </connections>
+    <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="/0/@children.1/@anchors.2" end="/0/@children.2/@anchors.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="/0/@colors.6" lineWidth="2" filled="false" transparency="0.0"/>
+      <link/>
+      <connectionDecorators visible="true" locationRelative="true" location="1.0">
+        <graphicsAlgorithm xsi:type="al:Polygon" background="/0/@colors.6" foreground="/0/@colors.6" lineWidth="1" transparency="0.0">
+          <points x="-7" y="4"/>
+          <points x="2"/>
+          <points x="-7" y="-4"/>
+          <points x="-1"/>
+          <points x="-7" y="4"/>
+          <points x="-3"/>
+          <points x="-7" y="-4"/>
+          <points x="-5"/>
+          <points x="-7" y="4"/>
+        </graphicsAlgorithm>
+      </connectionDecorators>
+      <bendpoints x="203" y="287"/>
+      <bendpoints x="257" y="21"/>
+    </connections>
+    <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="/0/@children.2/@anchors.1" end="/0/@children.0/@anchors.1">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="/0/@colors.6" lineWidth="2" filled="false" transparency="0.0"/>
+      <link/>
+      <connectionDecorators visible="true" locationRelative="true" location="1.0">
+        <graphicsAlgorithm xsi:type="al:Polygon" background="/0/@colors.6" foreground="/0/@colors.6" lineWidth="1" transparency="0.0">
+          <points x="-7" y="4"/>
+          <points x="2"/>
+          <points x="-7" y="-4"/>
+          <points x="-1"/>
+          <points x="-7" y="4"/>
+          <points x="-3"/>
+          <points x="-7" y="-4"/>
+          <points x="-5"/>
+          <points x="-7" y="4"/>
+        </graphicsAlgorithm>
+      </connectionDecorators>
+      <bendpoints x="418" y="142"/>
+      <bendpoints x="432" y="355"/>
+    </connections>
+    <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="/0/@children.3/@anchors.1" end="/0/@children.0/@anchors.1">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="/0/@colors.7" lineWidth="2" filled="false" transparency="0.0"/>
+      <link/>
+      <connectionDecorators visible="true" locationRelative="true" location="1.0">
+        <graphicsAlgorithm xsi:type="al:Polygon" background="/0/@colors.6" foreground="/0/@colors.7" lineWidth="1" transparency="0.0">
+          <points x="-7" y="4"/>
+          <points x="2"/>
+          <points x="-7" y="-4"/>
+          <points x="-1"/>
+          <points x="-7" y="4"/>
+          <points x="-3"/>
+          <points x="-7" y="-4"/>
+          <points x="-5"/>
+          <points x="-7" y="4"/>
+        </graphicsAlgorithm>
+      </connectionDecorators>
+      <bendpoints x="665" y="214"/>
+      <bendpoints x="613" y="326"/>
+      <bendpoints x="648" y="297"/>
+      <bendpoints x="648" y="340"/>
+    </connections>
+    <colors red="227" green="238" blue="249"/>
+    <colors red="255" green="255" blue="255"/>
+    <colors red="248" green="248" blue="248"/>
+    <colors red="105" green="107" blue="115"/>
+    <colors red="213" green="213" blue="213"/>
+    <colors red="23" green="26" blue="35"/>
+    <colors red="188" green="188" blue="188"/>
+    <colors red="225" green="225" blue="225"/>
+    <fonts name="Arial" size="8"/>
+    <fonts name="Segoe UI" size="8" bold="true"/>
+  </pi:Diagram>
+  
