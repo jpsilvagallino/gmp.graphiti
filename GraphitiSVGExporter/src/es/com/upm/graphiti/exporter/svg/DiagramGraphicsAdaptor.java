@@ -11,6 +11,7 @@
  *******************************************************************************/
 package es.com.upm.graphiti.exporter.svg;
 
+import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -42,8 +43,12 @@ import org.apache.batik.svggen.SVGGeneratorContext;
 import org.apache.batik.svggen.SVGGraphics2D;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.graphiti.datatypes.ILocation;
+import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
+import org.eclipse.graphiti.mm.algorithms.Ellipse;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Image;
+import org.eclipse.graphiti.mm.algorithms.MultiText;
 import org.eclipse.graphiti.mm.algorithms.PlatformGraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
@@ -69,9 +74,13 @@ import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.platform.ga.IGraphicsAlgorithmRenderer;
+import org.eclipse.graphiti.platform.ga.IGraphicsAlgorithmRendererFactory;
+import org.eclipse.graphiti.platform.ga.RendererContext;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.internal.platform.ExtensionManager;
 import org.eclipse.graphiti.ui.platform.IImageProvider;
+import org.eclipse.graphiti.export.batik.GraphicsToGraphics2DAdaptor;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 
@@ -153,7 +162,7 @@ public class DiagramGraphicsAdaptor extends SVGGraphics2D {
 	 * @return
 	 */
 	public boolean analyzeElement(ContainerShape cs) {
-		paint(cs);
+		paint(cs, true);
 		List<Shape> shapes = cs.getChildren();
 		Iterator<Shape> it = shapes.iterator();
 		while (it.hasNext()) {
@@ -162,7 +171,7 @@ public class DiagramGraphicsAdaptor extends SVGGraphics2D {
 			if (s instanceof ContainerShape) {
 				analyzeElement((ContainerShape) s);
 			} else if (s instanceof Shape) {
-				paint(s);
+				paint(s, true);
 			}
 		}
 		setDefaults();
@@ -177,14 +186,15 @@ public class DiagramGraphicsAdaptor extends SVGGraphics2D {
 		Iterator<Connection> itc = connections.iterator();
 		while (itc.hasNext()) {
 			Connection c = itc.next();
-			paint(c);
+			paint(c, true);
 		}		
 	}
 	/**
 	 * Paint Connection in the SVGGraphics2D.
 	 * @param c - Connection to be painted.
+	 * @param checkStyles 
 	 */
-	private void paint(Connection c) {
+	private void paint(Connection c, boolean checkStyles) {
 		GraphicsAlgorithm ga = c.getGraphicsAlgorithm();
 		int x = 0;
 		int y = 0;
@@ -257,14 +267,14 @@ public class DiagramGraphicsAdaptor extends SVGGraphics2D {
 			y = lastPoint.getY();
 			theta += Math.atan2(y - bendP.get(bendP.size() - 1).getY(), x - bendP.get(bendP.size() - 1).getX());
 		}
-		paintGraphicsAlgorithm(ga);
+		paintGraphicsAlgorithm(ga, checkStyles);
 		List<ConnectionDecorator> cDeco = c.getConnectionDecorators();
 		Iterator<ConnectionDecorator> itcd = cDeco.iterator();
 		while (itcd.hasNext()) {
 			ConnectionDecorator cd = itcd.next();
 			translate(x + cd.getLocation(), y);
 			rotate(theta);
-			paintGraphicsAlgorithm(cd.getGraphicsAlgorithm());
+			paintGraphicsAlgorithm(cd.getGraphicsAlgorithm(), checkStyles);
 			rotate(-theta);
 			translate(-(x + cd.getLocation()), -y);
 		}
@@ -346,19 +356,66 @@ public class DiagramGraphicsAdaptor extends SVGGraphics2D {
 	}
 
 	/**
+	 * Helper method to paint a grid. Painting is optimized as it is restricted
+	 * to the Graphics' clip.
+	 * Method obtained from FigureUtilities.java in org.eclipse.draw2d.FigureUtilities
+	 *  and adapted
+	 *  	- less parameters.
+	 * @param diagram - Diagram which Grid has to be painted.
+	 */
+	public void paintDefaultGrid(Diagram diagram) {
+		GraphicsAlgorithm graphicsAlgorithm = diagram.getGraphicsAlgorithm();
+		java.awt.Rectangle clip = new java.awt.Rectangle(
+				graphicsAlgorithm.getWidth(), graphicsAlgorithm.getHeight());
+		int x = 12, y = 12;
+		int distanceX = diagram.getGridUnit();
+		int distanceY = diagram.getVerticalGridUnit();
+		if (distanceY == -1) {
+			// No vertical grid unit set (or old diagram before 0.8): use
+			// vertical grid unit
+			distanceY = distanceX;
+		}
+		if (distanceX > 0) {
+			if (x >= clip.x)
+				while (x - distanceX >= clip.x)
+					x -= distanceX;
+			else
+				while (x < clip.x)
+					x += distanceX;
+			for (int i = x; i < clip.x + clip.width; i += distanceX)
+				
+				drawLine(i, clip.y, i, clip.y + clip.height);
+		}
+		if (distanceY > 0) {
+			if (y >= clip.y)
+				while (y - distanceY >= clip.y)
+					y -= distanceY;
+			else
+				while (y < clip.y)
+					y += distanceY;
+			for (int i = y; i < clip.y + clip.height; i += distanceY)
+				drawLine(clip.x, i, clip.x + clip.width, i);
+		}
+	}
+	/**
 	 * Paint Shape into SVGGraphics2D
 	 * @param s - Shape to be painted.
+	 * @param checkStyles 
 	 */
-	private void paint(Shape s) {
+	private void paint(Shape s, boolean checkStyles) {
 		GraphicsAlgorithm ga = s.getGraphicsAlgorithm();
 		List<Anchor> anchors = s.getAnchors();
 		Iterator<Anchor> itg = anchors.iterator();
 		int x = ga.getX();
 		int y = ga.getY();
 		if (s instanceof Diagram) {
-			paintGrid((Diagram) s);
+			if (diagramTypeId.contains("Flow")) {
+				paintGrid((Diagram) s);
+			} else {
+				paintDefaultGrid((Diagram) s);
+			}
 		} else if (s instanceof ContainerShape) {
-			paintGraphicsAlgorithm(ga);
+			paintGraphicsAlgorithm(ga, checkStyles);
 		} else {
 			ILocation il = Graphiti.getPeLayoutService().getLocationRelativeToDiagram(s.getContainer());
 			x = il.getX();
@@ -366,7 +423,7 @@ public class DiagramGraphicsAdaptor extends SVGGraphics2D {
 //			x = s.getContainer().getGraphicsAlgorithm().getX();
 //			y = s.getContainer().getGraphicsAlgorithm().getY();
 			translate(x, y);
-			paintGraphicsAlgorithm(ga);
+			paintGraphicsAlgorithm(ga, checkStyles);
 			translate(-x, -y);
 		}
 		while (itg.hasNext()) {
@@ -377,52 +434,54 @@ public class DiagramGraphicsAdaptor extends SVGGraphics2D {
 				y = ga.getY() + p.getY();
 			}
 			translate(x, y);
-			paintGraphicsAlgorithm(anc.getGraphicsAlgorithm());
+			paintGraphicsAlgorithm(anc.getGraphicsAlgorithm(), checkStyles);
 			translate(-x, -y);
 		}
 	}
 	/**
 	 * Paint GraphicsAlgorithm. Set the common attributes to all the AWT elements.
 	 * @param ga - GraphicsAlgorithm to be painted.
+	 * @param checkStyles 
 	 * @return boolean to check.
 	 */
-	public boolean paintGraphicsAlgorithm(GraphicsAlgorithm ga) {
+	public boolean paintGraphicsAlgorithm(GraphicsAlgorithm ga, boolean checkStyles) {
 		if (ga == null) {
 			return false;
-		}
-		if (ga.getBackground() != null) {
-			setBackground(getColor(ga.getBackground()));
-		}
-		if (ga.getForeground() != null) {
-			setPaint(getColor(ga.getForeground()));
 		}
 //		Composite composite = getComposite();
 //		if (composite instanceof AlphaComposite) {
 //			AlphaComposite newComposite = AlphaComposite.getInstance(((AlphaComposite) composite).getRule(), rect.getTransparency().floatValue());
 //			setComposite(newComposite);
 //		}
-		if (ga.getLineVisible()) {
-//			BasicStroke stroke = new BasicStroke(rect.getLineWidth());
-			setStroke(createStroke(ga));
-		} else {
-			setStroke(new BasicStroke(0));
-		}
+		double transparency = Graphiti.getGaService().getTransparency(ga, checkStyles);
+		float alpha = (float) (1.0 - transparency);
+		setComposite(AlphaComposite.getInstance(((AlphaComposite) getComposite()).getRule(), alpha));
+		setBackground(getColor(Graphiti.getGaService().getBackgroundColor(ga, checkStyles)));
+		setPaint(getColor(Graphiti.getGaService().getForegroundColor(ga, checkStyles)));
 		if (ga.getStyle() != null) {
 			setPaint(styles.get(ga.getStyle().getId()));
-//			setStroke(new BasicStroke(ga.getStyle().getLineWidth()));
+		}
+		if (Graphiti.getGaService().isLineVisible(ga, checkStyles)) {
+			setStroke(createStroke(ga, checkStyles));
+		} else {
+			setStroke(new BasicStroke(0));
 		}
 		if (ga instanceof Rectangle) {
 			paint((Rectangle) ga);
 		} else if (ga instanceof RoundedRectangle) {
 			paint((RoundedRectangle) ga);
-		} else if (ga instanceof Text) {
-			paint((Text) ga);
+		} else if (ga instanceof Ellipse) {
+			paint((Ellipse) ga);
+		} else if (ga instanceof Text || ga instanceof MultiText) {
+			paint((AbstractText) ga);
 		} else if (ga instanceof Polygon) {
 			paint((Polygon) ga);
 		} else if (ga instanceof Polyline) {
 			paint((Polyline) ga);
 		} else if (ga instanceof Image) {
 			paint((Image) ga);
+		} else if (ga instanceof PlatformGraphicsAlgorithm) {
+			paint((PlatformGraphicsAlgorithm) ga);
 		}
 		EList<GraphicsAlgorithm> gAlgo = ga.getGraphicsAlgorithmChildren();
 		Iterator<GraphicsAlgorithm> itg = gAlgo.iterator();
@@ -430,7 +489,7 @@ public class DiagramGraphicsAdaptor extends SVGGraphics2D {
 			GraphicsAlgorithm g = itg.next();
 			translate(ga.getX(), ga.getY());
 //			setClip(ga.getX(), ga.getY(), ga.getWidth(), ga.getHeight());
-			paintGraphicsAlgorithm(g);
+			paintGraphicsAlgorithm(g, checkStyles);
 			translate(-ga.getX(), -ga.getY());
 		}
 		return true;
@@ -442,15 +501,13 @@ public class DiagramGraphicsAdaptor extends SVGGraphics2D {
 	 */
 	private void paint(Rectangle rect) {
 		java.awt.Rectangle rectangle = new java.awt.Rectangle(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
-		if (rect.getFilled()) {
+		if (Graphiti.getGaService().isFilled(rect, true)) {
 			fill(rectangle);
 		}
-		if (rect.getStyle() != null) {
-			setPaint(getColor(rect.getStyle().getForeground()));
-		} else if (rect.getForeground() != null) {
-			setPaint(getColor(rect.getForeground()));
-		}
-		if (rect.getLineVisible()) {
+		
+		// Mientras que haya que incluirlo dos veces...
+		setPaint(getColor(Graphiti.getGaService().getForegroundColor(rect, true)));
+		if (Graphiti.getGaService().isLineVisible(rect, true)) {
 			draw(rectangle);
 		}
 	}
@@ -462,25 +519,32 @@ public class DiagramGraphicsAdaptor extends SVGGraphics2D {
 	private void paint(RoundedRectangle rrect) {
 		RoundRectangle2D.Float rrectangle = new RoundRectangle2D.Float(
 				rrect.getX(), rrect.getY(), rrect.getWidth(), rrect.getHeight(), rrect.getCornerWidth(), rrect.getCornerHeight());
-		if (rrect.getFilled()) {
+		if (Graphiti.getGaService().isFilled(rrect, true)) {
 			fill(rrectangle);
 		}
-		if (rrect.getStyle().getForeground() != null) {
-			setPaint(getColor(rrect.getStyle().getForeground()));
-		} else if (rrect.getForeground() != null) {
-			setPaint(getColor(rrect.getForeground()));
-		}
-		if (rrect.getLineVisible()) {
+		// Mientras que haya que incluirlo dos veces...
+		setColor(getColor(Graphiti.getGaService().getForegroundColor(rrect, true)));			
+		if (Graphiti.getGaService().isLineVisible(rrect, true)) {
 			draw(rrectangle);
+		}
+	}
+	private void paint(Ellipse ell) {
+		if (Graphiti.getGaService().isFilled(ell, true))  {
+			fillOval(ell.getX(), ell.getY(), ell.getWidth(), ell.getHeight());
+		}
+		// Mientras que haya que incluirlo dos veces...
+		setPaint(getColor(Graphiti.getGaService().getForegroundColor(ell, true)));			
+		if (Graphiti.getGaService().isLineVisible(ell, true)) {
+			drawOval(ell.getX(), ell.getY(), ell.getWidth(), ell.getHeight());
 		}
 	}
 	/**
 	 * 
 	 * Paint the element Text in Graphiti.mm.algorithms.
 	 * Link the attributes in Text to draw a String in Graphics2D.
-	 * @param text - Text to be painted.
+	 * @param text - AbstractText to be painted.
 	 */
-	private void paint(Text text) {
+	private void paint(AbstractText text) {
 		//Clip, Transform, Paint, Font and Composite
 		setFont(text.getFont());
 		FontMetrics fm   = getFontMetrics();
@@ -536,15 +600,12 @@ public class DiagramGraphicsAdaptor extends SVGGraphics2D {
 		for (int i = 0; i < points.size(); i++) {
 			p.addPoint(points.get(i).getX(), points.get(i).getY());
 		}
-		if (pol.getFilled())  {
+		if (Graphiti.getGaService().isFilled(pol, true))  {
 			fill(p);
 		}
-		if (pol.getStyle() != null) {
-			setPaint(getColor(pol.getStyle().getForeground()));
-		} else if (pol.getForeground() != null) {
-			setPaint(getColor(pol.getForeground()));
-		}
-		if (pol.getLineVisible()) {
+		// Mientras que haya que incluirlo dos veces...
+		setPaint(getColor(Graphiti.getGaService().getForegroundColor(pol, true)));			
+		if (Graphiti.getGaService().isLineVisible(pol, true)) {
 			draw(p);
 		}
 	}
@@ -637,6 +698,19 @@ public class DiagramGraphicsAdaptor extends SVGGraphics2D {
 			}
 			
 		}
+	}
+	/**
+	 * 
+	 * @param pga - PlatformGraphicsAlgorithm
+	 */
+	private void paint(PlatformGraphicsAlgorithm pga) {
+		String providerId = ExtensionManager.getSingleton().getDiagramTypeProviderId(diagramTypeId);
+		IDiagramTypeProvider dtp = ExtensionManager.getSingleton().createDiagramTypeProvider(providerId);
+		IGraphicsAlgorithmRendererFactory garf = dtp.getGraphicsAlgorithmRendererFactory();
+		IGraphicsAlgorithmRenderer gar = garf.createGraphicsAlgorithmRenderer(new RendererContext(pga, dtp));
+		org.eclipse.draw2d.Shape draw2dShape = (org.eclipse.draw2d.Shape) gar;
+		GraphicsToGraphics2DAdaptor gga = new GraphicsToGraphics2DAdaptor(this, draw2dShape.getBounds());
+		draw2dShape.paint(gga);
 	}
 	/**
 	 * Obtain the Image corresponding to the id String which is given as parameter.
@@ -744,12 +818,13 @@ public class DiagramGraphicsAdaptor extends SVGGraphics2D {
 	 * Copied from GraphicsToGraphics2DAdaptor because there is private.
 	 * Form the Stroke to be painted with the needed GraphicsAlgorithm attributes  
 	 * @param ga - GraphicsAlgorithm 
+	 * @param checkStyles 
 	 */
-	private Stroke createStroke(GraphicsAlgorithm ga) {
-		int lineWidth = Graphiti.getGaService().getLineWidth(ga, true);
+	private Stroke createStroke(GraphicsAlgorithm ga, boolean checkStyles) {
+		int lineWidth = Graphiti.getGaService().getLineWidth(ga, checkStyles);
 		
 		// line style
-		LineStyle lineStyle = Graphiti.getGaService().getLineStyle(ga, true);
+		LineStyle lineStyle = Graphiti.getGaService().getLineStyle(ga, checkStyles);
 		
 		float factor = lineWidth > 0 ? lineWidth : 3;
 		float awt_dash[];
@@ -858,8 +933,10 @@ public class DiagramGraphicsAdaptor extends SVGGraphics2D {
 	 * @return java.AWT.Color obtained from Color in Graphiti.
 	 */
 	protected java.awt.Color getColor(Color toConvert) {
-
-		return new java.awt.Color(toConvert.getRed(), toConvert.getGreen(), toConvert.getBlue());
+		if (toConvert != null) {
+			return new java.awt.Color(toConvert.getRed(), toConvert.getGreen(), toConvert.getBlue());
+		}
+		return null;
 	}
 	@Override
 	public void draw(java.awt.Shape s) {
